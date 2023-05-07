@@ -1,0 +1,77 @@
+type Article {
+  author: Profile!
+  body: String!
+  createdAt: String!
+  description: String!
+  favorited: Boolean!
+  favoritesCount: Int!
+  slug: String!
+  tagList: [String]
+  title: String!
+  updatedAt: String!
+}
+
+type ArticleEdge {
+  cursor: String!
+  node: Article
+}
+
+type ArticlesConnection {
+  count: Int!
+  edges: [ArticleEdge]
+  pageInfo: PageInfo!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type ArticlePayload {
+  article: Article
+}
+
+# Input types.
+input UpdateArticleInput {
+  body: String
+  description: String
+  title: String
+}
+
+input CreateArticleInput {
+  body: String!
+  description: String!
+  tagList: [String]
+  title: String!
+}
+type DeletionStatus {
+  success: Boolean!
+}
+
+
+type Query {
+  article(slug: String!): Article
+  articles(
+    first: Int
+    after: String
+    authoredBy: String
+    favoritedBy: String
+    withTag: String
+  ): ArticlesConnection
+}
+
+type Mutation {
+  ### Article
+  createArticle(input: CreateArticleInput!): ArticlePayload
+  updateArticle(slug: String!, changes: UpdateArticleInput!): ArticlePayload
+  favoriteArticle(slug: String!): ArticlePayload
+  deleteArticle(slug: String!): DeletionStatus
+  tags: [String]
+}
+
+#schema {
+#  query: Query
+#  mutation: Mutation
+#}

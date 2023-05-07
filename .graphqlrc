@@ -1,0 +1,2 @@
+documents: ["./src/entities/**/typeDef.gql"]
+schema: ["./src/entities/**/typeDef.gql"]

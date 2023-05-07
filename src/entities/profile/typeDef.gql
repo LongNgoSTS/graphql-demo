@@ -1,0 +1,59 @@
+### Profile
+type Profile {
+  username: String!
+  bio: String
+  following: Boolean!
+  image: String
+  articles(first: Int, after: String): ArticlesConnection
+  favorites(first: Int, after: String): ArticlesConnection
+  feed(first: Int, after: String): ArticlesConnection
+}
+
+input CreateUserInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String
+  username: String
+  password: String
+  image: String
+  bio: String
+}
+
+type ProfilePayload {
+  profile: Profile
+}
+
+type UserPayload {
+  user: User
+}
+
+type User {
+  email: String!
+  profile: Profile!
+  token: String!
+  username: String!
+}
+
+
+# Build the schema.
+type Query {
+  profile(username: String!): Profile
+}
+
+type Mutation {
+  ### User & Profile
+  createUser(input: CreateUserInput): UserPayload
+  updateUser(changes: UpdateUserInput!): UserPayload
+  followUser(username: String!): ProfilePayload
+  unfollowUser(username: String!): ProfilePayload
+}
+
+#schema {
+#  query: Query
+#  mutation: Mutation
+#}
+
