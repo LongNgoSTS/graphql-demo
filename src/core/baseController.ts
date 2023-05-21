@@ -4,7 +4,7 @@ import { Axios } from "axios";
 export class BaseController {
   #http$ = new Axios({
     baseURL: "https://conduit.productionready.io/api/",
-    transformResponse: res => JSON.parse(res)
+    transformResponse: (data) => JSON.parse(data),
   });
   #endpoint: string = "";
 
@@ -12,19 +12,21 @@ export class BaseController {
     this.#endpoint = endpoint;
   }
 
-  get(params?: unknown): Promise<AxiosResponse<unknown>> {
-    return this.#http$.get(this.#endpoint, { params });
+  get(params?: unknown): Promise<unknown> {
+    return this.#http$.get(this.#endpoint, { params }).then((res) => res.data);
   }
 
-  post(body?: unknown): Promise<AxiosResponse<unknown>> {
-    return this.#http$.post(this.#endpoint, body);
+  post(body?: unknown): Promise<unknown> {
+    return this.#http$.post(this.#endpoint, body).then((res) => res.data);
   }
 
-  put(body?: unknown): Promise<AxiosResponse<unknown>> {
-    return this.#http$.put(this.#endpoint, body);
+  put(body?: unknown): Promise<unknown> {
+    return this.#http$.put(this.#endpoint, body).then((res) => res.data);
   }
 
-  delete(params?: unknown): Promise<AxiosResponse<unknown>> {
-    return this.#http$.delete(this.#endpoint, { params });
+  delete(params?: unknown): Promise<unknown> {
+    return this.#http$
+      .delete(this.#endpoint, { params })
+      .then((res) => res.data);
   }
 }

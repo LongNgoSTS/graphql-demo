@@ -18,7 +18,7 @@ class BaseController {
     constructor() {
         _BaseController_http$.set(this, new axios_1.Axios({
             baseURL: "https://conduit.productionready.io/api/",
-            transformResponse: res => JSON.parse(res)
+            transformResponse: (data) => JSON.parse(data),
         }));
         _BaseController_endpoint.set(this, "");
     }
@@ -26,16 +26,18 @@ class BaseController {
         __classPrivateFieldSet(this, _BaseController_endpoint, endpoint, "f");
     }
     get(params) {
-        return __classPrivateFieldGet(this, _BaseController_http$, "f").get(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), { params });
+        return __classPrivateFieldGet(this, _BaseController_http$, "f").get(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), { params }).then((res) => res.data);
     }
     post(body) {
-        return __classPrivateFieldGet(this, _BaseController_http$, "f").post(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), body);
+        return __classPrivateFieldGet(this, _BaseController_http$, "f").post(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), body).then((res) => res.data);
     }
     put(body) {
-        return __classPrivateFieldGet(this, _BaseController_http$, "f").put(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), body);
+        return __classPrivateFieldGet(this, _BaseController_http$, "f").put(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), body).then((res) => res.data);
     }
     delete(params) {
-        return __classPrivateFieldGet(this, _BaseController_http$, "f").delete(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), { params });
+        return __classPrivateFieldGet(this, _BaseController_http$, "f")
+            .delete(__classPrivateFieldGet(this, _BaseController_endpoint, "f"), { params })
+            .then((res) => res.data);
     }
 }
 exports.BaseController = BaseController;

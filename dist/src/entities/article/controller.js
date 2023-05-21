@@ -15,13 +15,21 @@ class ArticleController extends baseController_1.BaseController {
     getArticle(slug) {
         return __awaiter(this, void 0, void 0, function* () {
             this.setEndpoint(`/articles/${slug}`);
-            return yield this.get();
+            const data = (yield this.get());
+            return (yield this.get());
         });
     }
-    getArticles() {
+    getArticles(payload) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { after, authoredBy, favoritedBy, first, withTag } = payload;
             this.setEndpoint("/articles");
-            return this.get();
+            return yield this.get({
+                tag: withTag,
+                author: authoredBy,
+                favorited: favoritedBy,
+                limit: first,
+                offset: after,
+            });
         });
     }
 }

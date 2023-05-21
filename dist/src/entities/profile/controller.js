@@ -15,7 +15,7 @@ class ProfileController extends baseController_1.BaseController {
     getProfile(username) {
         return __awaiter(this, void 0, void 0, function* () {
             this.setEndpoint(`/profiles/${username}`);
-            return (yield this.get()).data;
+            return (yield this.get());
         });
     }
     followProfile(username) {

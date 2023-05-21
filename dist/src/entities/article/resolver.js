@@ -10,13 +10,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mutation = exports.Query = void 0;
+const paginationModel_1 = require("../../core/paginationModel");
 const controller_1 = require("./controller");
 exports.Query = {
     article: (_, args, context) => __awaiter(void 0, void 0, void 0, function* () {
         const articleController = new controller_1.ArticleController();
-        return yield articleController.getArticle(args.slug);
+        return (yield articleController.getArticle(args.slug)).article;
+    }),
+    articles: (_, args, context) => __awaiter(void 0, void 0, void 0, function* () {
+        const articleController = new controller_1.ArticleController();
+        const data = yield articleController.getArticles(args);
+        const paginationModel = new paginationModel_1.PaginationModel();
+        return paginationModel.prepareCursor(data.articles, data.articlesCount, {
+            after: args.after,
+            first: args.first,
+        });
     }),
 };
 exports.Mutation = {
-    createArticle: () => { }
+    createArticle: () => { },
 };

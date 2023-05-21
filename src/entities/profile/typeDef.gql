@@ -52,6 +52,9 @@ type Mutation {
   unfollowUser(username: String!): ProfilePayload
 }
 
+type Subscription {
+  countdown(from: Int!): Int!
+}
 #schema {
 #  query: Query
 #  mutation: Mutation

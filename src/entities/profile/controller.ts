@@ -1,11 +1,10 @@
 import { BaseController } from "../../core/baseController";
-import {ProfilePayload} from "../../models";
-import {AxiosResponse} from "axios";
+import { ProfilePayload } from "../../models";
 
 export class ProfileController extends BaseController {
   async getProfile(username: string): Promise<ProfilePayload> {
     this.setEndpoint(`/profiles/${username}`);
-    return (await this.get()).data as ProfilePayload;
+    return (await this.get()) as ProfilePayload;
   }
 
   async followProfile(username: string): Promise<unknown> {

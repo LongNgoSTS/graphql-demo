@@ -186,6 +186,16 @@ export type QueryProfileArgs = {
   username: Scalars['String'];
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  countdown: Scalars['Int'];
+};
+
+
+export type SubscriptionCountdownArgs = {
+  from: Scalars['Int'];
+};
+
 export type UpdateArticleInput = {
   body?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
@@ -299,6 +309,7 @@ export type ResolversTypes = {
   ProfilePayload: ResolverTypeWrapper<ProfilePayload>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   UpdateArticleInput: UpdateArticleInput;
   UpdateUserInput: UpdateUserInput;
   User: ResolverTypeWrapper<User>;
@@ -322,6 +333,7 @@ export type ResolversParentTypes = {
   ProfilePayload: ProfilePayload;
   Query: {};
   String: Scalars['String'];
+  Subscription: {};
   UpdateArticleInput: UpdateArticleInput;
   UpdateUserInput: UpdateUserInput;
   User: User;
@@ -407,6 +419,10 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   profile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryProfileArgs, 'username'>>;
 };
 
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  countdown?: SubscriptionResolver<ResolversTypes['Int'], "countdown", ParentType, ContextType, RequireFields<SubscriptionCountdownArgs, 'from'>>;
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>;
@@ -431,6 +447,7 @@ export type Resolvers<ContextType = any> = {
   Profile?: ProfileResolvers<ContextType>;
   ProfilePayload?: ProfilePayloadResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserPayload?: UserPayloadResolvers<ContextType>;
 };
